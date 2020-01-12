@@ -21,7 +21,9 @@
     "jsonwebtoken": "^8.5.1",
     "lusca": "^1.6.1",
     "mongoose": "^5.8.6",
-    "multer": "^1.4.2"
+    "multer": "^1.4.2",
+    "passport": "^0.4.1",
+    "passport-jwt": "^4.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
