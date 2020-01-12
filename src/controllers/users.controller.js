@@ -1,16 +1,10 @@
-const asyncHandler = require("../utils/asyncHandler");
-const UserModel = require("../models/user").UserModel;
+import {asyncHandler} from '../utils/asyncHandler';
+import UserModel from '../models/user';
 
-const postUser = asyncHandler( async(req, res, next) => {
+export const postUser = asyncHandler( async(req, res, next) => {
     const user = {
         email: req.body.email,
         password: req.body.password,
     };
-
-    console.log(user);
     res.status(201).json(await UserModel.create(user));
 });
-
-module.exports = {
-    postUser,
-}

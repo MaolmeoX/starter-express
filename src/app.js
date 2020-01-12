@@ -1,13 +1,15 @@
-const express = require("express");
-      compression = require("compression");
-      session = require("express-session");
-      bodyParser = require("body-parser");
-      lusca = require("lusca");
-      mongo = require("connect-mongo");
-      mongoose = require("mongoose");
-      secrets = require("./utils/secrets");
-      errorHandler = require("errorhandler");
-      cors = require("cors");
+import express from "express";
+import compression from "compression";
+import session from "express-session";
+import bodyParser from "body-parser";
+import lusca from "lusca";
+import mongo from "connect-mongo";
+import mongoose from "mongoose";
+import {MONGODB_URI, SESSION_SECRET, isProd} from "./utils/secrets";
+import errorHandler from "errorhandler";
+import cors from "cors";
+
+import appRouter from './routes';
 
 const MongoStore = mongo(session);
 
@@ -17,7 +19,7 @@ const app = express();
 app.use(cors());
 
 // Connect to MongoDB
-const mongoUrl = secrets.MONGODB_URI;
+const mongoUrl = MONGODB_URI;
 
 const options = {
     autoCreate: true,
@@ -46,7 +48,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session({
     resave: true,
     saveUninitialized: true,
-    secret: secrets.SESSION_SECRET,
+    secret: SESSION_SECRET,
     store: new MongoStore({
         url: mongoUrl,
         autoReconnect: true
@@ -54,9 +56,9 @@ app.use(session({
 }));
 app.use(lusca.xframe("SAMEORIGIN"));
 app.use(lusca.xssProtection(true));
-if(!secrets.isProd) {
+if(!isProd) {
     app.use(errorHandler());
 }
-app.use(require('./routes'));
+app.use(appRouter);
 
-module.exports = app;
+export default app;

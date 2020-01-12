@@ -1,5 +1,5 @@
-const app = require('./app');
-      displayRoutes = require('express-routemap');
+import app from './app';
+import displayRoutes from "express-routemap";
 
 app.listen(app.get("port"), () => {
     console.log(

@@ -18,11 +18,11 @@ if (!MONGODB_URI) {
     process.exit(1);
 }
 
-const secret = process.env.JWT_SECRET;
+const jwtSecret = process.env.JWT_SECRET;
 
-module.exports = {
+export {
     MONGODB_URI,
     SESSION_SECRET,
     isProd,
-    secret,
+    jwtSecret,
 }

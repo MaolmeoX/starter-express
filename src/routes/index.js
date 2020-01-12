@@ -1,9 +1,10 @@
-const router = require('express').Router();
-const userController = require('../controllers/users.controller');
+import {Router} from "express";
+import * as UsersController from '../controllers/users.controller';
+import apiRouter from './api';
 
-router.use('/api', require('./api'));
+const appRouter = Router();
 
-// router.post("/login", userController.postLogin);
-router.post("/users", userController.postUser);
+appRouter.post('/users', UsersController.postUser);
+appRouter.use('/api/', apiRouter);
 
-module.exports = router;
+export default appRouter;

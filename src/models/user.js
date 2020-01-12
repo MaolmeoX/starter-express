@@ -1,9 +1,9 @@
-const mongoose = require('mongoose');
-      jwt = require('jsonwebtoken');
-      secret = require('../utils/secrets').secret;
-      bcrypt = require("bcryptjs");
+import { Schema, model } from 'mongoose';
+import {sign} from 'jsonwebtoken';
+import {hash, compare} from 'bcryptjs';
+import {jwtSecret} from '../utils/secrets';
 
-const UserSchema = new mongoose.Schema({
+const UserSchema = new Schema({
     email: { type: String, unique: true },
     password: String,
     name: String,
@@ -11,36 +11,34 @@ const UserSchema = new mongoose.Schema({
     dateOfBirth: String,
   }, { timestamps: true });
   
-  UserSchema.pre("save", async function(next) {
-    await this.hashPassword();
-    next();
-  });
+UserSchema.pre("save", async function(next) {
+  await this.hashPassword();
+  next();
+});
   
-  UserSchema.methods.comparePassword = async function (candidatePassword) {
-    return bcrypt.compare(candidatePassword, this.password);
-  };
+UserSchema.methods.comparePassword = async function (candidatePassword) {
+  return compare(candidatePassword, this.password);
+};
  
-  UserSchema.methods.hashPassword = async function hashPassword() {
-    this.password = await bcrypt.hash(this.password, +process.env.SALT_ROUNDS);
-  };
+UserSchema.methods.hashPassword = async function hashPassword() {
+  this.password = await hash(this.password, +process.env.SALT_ROUNDS);
+};
   
-  UserSchema.methods.createToken = async function createToken() {
-    const expiresIn = "7d";
-    return jwt.sign(
-        {
-          id: this.id,
-          email: this.email,
-        },
-        {key :privateKey, passphrase: KEY_PASSPHRASE},
-        {
-        algorithm: "RS256",
-        expiresIn,
-        },
-    );
-  };
+UserSchema.methods.createToken = async function createToken() {
+  const expiresIn = "7d";
+  return sign(
+      {
+        id: this.id,
+        email: this.email,
+      },
+      jwtSecret,
+      {
+      algorithm: "RS256",
+      expiresIn,
+      },
+  );
+};
 
-  const UserModel = mongoose.model('UserModel', UserSchema);
+const UserModel = model('UserModel', UserSchema);
 
-module.exports = {
-    UserModel, 
-}
+export default UserModel;
