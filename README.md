@@ -1,9 +1,17 @@
 ## Launch
+
 ```
 npm ci
 ```
-AND 
+
+AND
 
 ```
-npm run watch
+cp .env.example .env
+```
+
+AND
+
+```
+npm run start
 ```
