@@ -36,7 +36,6 @@ UserSchema.methods.createToken = async function createToken() {
     },
     jwtSecret,
     {
-      algorithm: 'RS256',
       expiresIn,
     }
   );

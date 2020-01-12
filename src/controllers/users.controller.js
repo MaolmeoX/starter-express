@@ -9,4 +9,13 @@ export const postUser = asyncHandler(async (req, res, next) => {
   res.status(201).json(await UserModel.create(user));
 });
 
-export const loginUser = asyncHandler(async (req, res, next) => {});
+export const loginUser = asyncHandler(async (req, res, next) => {
+  const { email, password } = req.body;
+
+  const user = await UserModel.findOne({ email });
+
+  if (user && (await user.comparePassword(password))) {
+    return res.json(await user.createToken());
+  }
+  throw new Error('Bac credentials');
+});

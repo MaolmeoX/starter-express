@@ -5,8 +5,10 @@ import bodyParser from 'body-parser';
 import lusca from 'lusca';
 import mongo from 'connect-mongo';
 import mongoose from 'mongoose';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import errorHandler from 'errorhandler';
 import cors from 'cors';
+import passport from 'passport';
 import { MONGODB_URI, SESSION_SECRET, isProd } from './utils/secrets';
 
 import appRouter from './routes';
@@ -39,7 +41,9 @@ mongoose
     /** ready to use. The `mongoose.connect()` promise resolves to undefined. */
   })
   .catch(err => {
-    console.log(`MongoDB connection error. Please make sure MongoDB is running. ${err}`);
+    console.log(
+      `MongoDB connection error. Please make sure MongoDB is running. ${err}`
+    );
     process.exit();
   });
 
@@ -64,6 +68,11 @@ app.use(lusca.xssProtection(true));
 if (!isProd) {
   app.use(errorHandler());
 }
+
+require('./config/passport');
+
+app.use(passport.initialize());
+
 app.use(appRouter);
 
 export default app;
