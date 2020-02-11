@@ -2,9 +2,11 @@
 import displayRoutes from 'express-routemap';
 import app from './app';
 
-app.listen(app.get('port'), () => {
+app.listen(process.env.PORT, () => {
   console.log(
-    `App is running at http://localhost:${app.get('port')} in ${app.get('env')}`
+    `App is running at http://localhost:${process.env.PORT} in ${app.get(
+      'env'
+    )}`
   );
   console.log('Press CTRL-C to stop');
   displayRoutes(app);
