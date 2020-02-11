@@ -23,28 +23,28 @@ app.use(cors());
 const mongoUrl = MONGODB_URI;
 
 const options = {
-  autoCreate: true,
-  // reconnectTries: Number.MAX_VALUE, // Never stop trying to reconnect
-  // reconnectInterval: 500, // Reconnect every 500ms
-  poolSize: 10,
-  bufferMaxEntries: 0,
-  useNewUrlParser: true,
-  useCreateIndex: true,
-  useUnifiedTopology: true,
-  useFindAndModify: true,
+    autoCreate: true,
+    // reconnectTries: Number.MAX_VALUE, // Never stop trying to reconnect
+    // reconnectInterval: 500, // Reconnect every 500ms
+    poolSize: 10,
+    bufferMaxEntries: 0,
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true,
+    useFindAndModify: true,
 };
 
 mongoose
-  .connect(mongoUrl, options)
-  .then(() => {
-    /** ready to use. The `mongoose.connect()` promise resolves to undefined. */
-  })
-  .catch(err => {
-    console.log(
-      `MongoDB connection error. Please make sure MongoDB is running. ${err}`
-    );
-    process.exit();
-  });
+    .connect(mongoUrl, options)
+    .then(() => {
+        /** ready to use. The `mongoose.connect()` promise resolves to undefined. */
+    })
+    .catch(err => {
+        console.log(
+            `MongoDB connection error. Please make sure MongoDB is running. ${err}`
+        );
+        process.exit();
+    });
 
 // Express configuration
 app.set('port', process.env.PORT || 3000);
@@ -52,23 +52,23 @@ app.use(compression());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
-  session({
-    resave: true,
-    saveUninitialized: true,
-    secret: SESSION_SECRET,
-    store: new MongoStore({
-      url: mongoUrl,
-      autoReconnect: true,
-    }),
-  })
+    session({
+        resave: true,
+        saveUninitialized: true,
+        secret: SESSION_SECRET,
+        store: new MongoStore({
+            url: mongoUrl,
+            autoReconnect: true,
+        }),
+    })
 );
 app.use(lusca.xframe('SAMEORIGIN'));
 app.use(lusca.xssProtection(true));
 if (!isProd) {
-  app.use(errorHandler());
+    app.use(errorHandler());
 }
 
-require('./config/passport');
+/*require('./config/passport');*/
 
 app.use(passport.initialize());
 

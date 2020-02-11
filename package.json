@@ -1,8 +1,8 @@
 {
-  "name": "starter-express",
+  "name": "test-heroku",
   "version": "1.0.0",
   "description": "",
-  "main": "src/server.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rm -rf build && mkdir build",
@@ -11,8 +11,9 @@
     "start": "npm run build && node ./build/server.js",
     "start:dev": "babel-node server.js"
   },
-  "author": "Arnaud Maurice",
-  "license": "MIT",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "compression": "^1.7.4",
