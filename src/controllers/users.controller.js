@@ -17,5 +17,5 @@ export const loginUser = asyncHandler(async (req, res, next) => {
   if (user && (await user.comparePassword(password))) {
     return res.json(await user.createToken());
   }
-  throw new Error('Bac credentials');
+  throw new Error('Bad credentials');
 });
