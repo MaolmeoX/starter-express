@@ -34,9 +34,7 @@ class MovieApiServices {
   }
 
   async get(url, options) {
-    console.log('GET Options', options);
     const response = await this.client.get(url, options);
-    console.log('GET Options', options);
     return response.data;
   }
 
