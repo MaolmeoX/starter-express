@@ -26,7 +26,8 @@ export default class PlaylistService {
   // eslint-disable-next-line consistent-return
   static async getPlayListUser(user) {
     try {
-      return await PlaylistModel.findOne({ user: user.id });
+      // eslint-disable-next-line no-underscore-dangle
+      return await PlaylistModel.findOne({ user: user._id });
     } catch (e) {
       console.error(e);
     }

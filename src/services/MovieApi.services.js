@@ -28,7 +28,12 @@ class MovieApiServices {
 
     this.client.interceptors.request.use(request => {
       const d = Date.now();
-      console.log(d, request.method, request.url, request.params);
+      console.log(
+        d,
+        request.method,
+        `${request.baseURL}${request.url}`,
+        request.params
+      );
       return request;
     });
   }
