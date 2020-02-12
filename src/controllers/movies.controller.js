@@ -14,3 +14,8 @@ export const getMovies = asyncHandler(async (req, res, next) => {
 
   res.status(201).json(movies.results);
 });
+
+export const getTopRatedMovies = asyncHandler(async (req, res, next) => {
+  const movies = await MovieApiServices.get('movie/top_rated');
+  res.status(201).json(movies.results);
+});
