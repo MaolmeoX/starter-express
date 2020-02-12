@@ -13,7 +13,11 @@ export const postUserMovie = asyncHandler(async (req, res, next) => {
   return res
     .status(201)
     .json(
-      PlaylistService.getOrCreatePlaylistUser(user, movie.id, 'Ma playlist')
+      await PlaylistService.getOrCreatePlaylistUser(
+        user,
+        movie.id,
+        'Ma playlist'
+      )
     );
 });
 
