@@ -68,7 +68,7 @@ if (!isProd) {
   app.use(errorHandler());
 }
 
-/*require('./config/passport');*/
+require('./config/passport');
 
 app.use(passport.initialize());
 

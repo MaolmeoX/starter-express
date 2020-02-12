@@ -1,4 +1,4 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model, SchemaTypes } from 'mongoose';
 import { sign } from 'jsonwebtoken';
 import { hash, compare } from 'bcryptjs';
 import { jwtSecret } from '../utils/secrets';
@@ -10,6 +10,7 @@ const UserSchema = new Schema(
     name: String,
     firstName: String,
     dateOfBirth: String,
+    playlist: [{ type: SchemaTypes.ObjectId, ref: 'PlayListModel' }],
   },
   { timestamps: true }
 );
