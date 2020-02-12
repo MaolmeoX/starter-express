@@ -11,7 +11,7 @@ export const getMovies = asyncHandler(async (req, res, next) => {
     },
   });
 
-  res.status(201).json(movies);
+  res.status(201).json(movies.results);
 });
 
 export const getMovie = asyncHandler(async (req, res, next) => {
